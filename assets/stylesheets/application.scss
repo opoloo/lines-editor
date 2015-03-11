@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #fcfcfc;
+}
+
+#editor {
+  width: 100%;
+  max-width: 740px;
+  background-color: #fff;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.cm-s-lines {
+  font-family: sans-serif;
+}
