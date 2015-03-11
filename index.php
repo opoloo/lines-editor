@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no">
+
+    <title>LINES 2.0 Editor</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
+    <link rel="stylesheet" href="assets/stylesheets/application.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="codemirror/theme/lines-dark.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="codemirror/theme/lines-light.css" type="text/css" media="all" />
+
+    <!-- Javascripts -->
+    <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="codemirror/addon/mode/overlay.js"></script>
+    <script type="text/javascript" src="codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="codemirror/mode/gfm/gfm.js"></script>
+    <script type="text/javascript" src="assets/javascripts/application.js"></script>
+  </head>
+  <body>
+    <?php
+    if (isset($_GET['theme'])) {
+      switch ($_GET['theme']) {
+        case "dark":
+        case "light":
+          $theme = trim($_GET['theme']);
+          break;
+        default:
+          $theme = "light";
+          break;
+      }
+    } else {
+      $theme = "light";
+    }
+    ?>
+    <div class="grid">
+      <div class="col">
+        <a href="?theme=light">Light Theme</a>
+      </div>
+      <div class="col">
+        <a href="?theme=dark">Dark Theme</a>
+      </div>
+    </div>
+    <div id="editor" class="<?php echo $theme; ?>"></div>
+  </body>
+
+  <script type="text/javascript">
+  window.onload = function() {
+    editor.init("editor", "<?php echo $theme; ?>");
+  };
+  </script>
+</html>

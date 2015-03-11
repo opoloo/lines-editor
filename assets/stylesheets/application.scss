@@ -1,8 +1,16 @@
+@import "../fonts/fira-mono/fira-mono.css";
+
+@mixin vendor($a, $v) {
+  -webkit-#{$a}: $v;
+  -moz-#{$a}: $v;
+  #{$a}: $v;
+}
+
 * {
   margin: 0;
   padding: 0;
   border: 0;
-  box-sizing: border-box;
+  @include vendor(box-sizing, border-box);
 }
 
 html, body {
@@ -10,18 +18,40 @@ html, body {
 }
 
 body {
-  background-color: #fcfcfc;
+  background-color: #ddd;
+}
+
+.grid {
+  .col {
+    width: 50%;
+    float: left;
+    text-align: center;
+    a {
+      color: #ff6600;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 3em;
+      font-family: 'Fira Mono';
+    }
+  }
+  &:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
 }
 
 #editor {
   width: 100%;
-  max-width: 740px;
-  background-color: #fff;
+  max-width: 1420px;
   margin: 100px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-}
-
-.cm-s-lines {
-  font-family: sans-serif;
+  font-family: 'Fira Mono', monospace;
+  padding: 125px 280px;
+  font-size: 18px;
+  &.dark {
+    background-color: #1a1a1a;
+  }
+  &.light {
+    background-color: #ffffff;
+  }
 }

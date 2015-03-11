@@ -47,7 +47,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
 
   // Turn on strikethrough syntax
   if (modeCfg.strikethrough === undefined)
-    modeCfg.strikethrough = false;
+    modeCfg.strikethrough = true;
 
   var codeDepth = 0;
 
