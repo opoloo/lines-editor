@@ -22,34 +22,34 @@
   </head>
   <body>
     <?php
-    if (isset($_GET['theme'])) {
-      switch ($_GET['theme']) {
-        case "dark":
-        case "light":
-          $theme = trim($_GET['theme']);
-          break;
-        default:
-          $theme = "light";
-          break;
-      }
-    } else {
-      $theme = "light";
-    }
+    // if (isset($_GET['theme'])) {
+    //   switch ($_GET['theme']) {
+    //     case "dark":
+    //     case "light":
+    //       $theme = trim($_GET['theme']);
+    //       break;
+    //     default:
+    //       $theme = "light";
+    //       break;
+    //   }
+    // } else {
+    //   $theme = "light";
+    // }
     ?>
     <div class="grid">
       <div class="col">
-        <a href="?theme=light">Light Theme</a>
+        <a href="index.html">Light Theme</a>
       </div>
       <div class="col">
-        <a href="?theme=dark">Dark Theme</a>
+        <a href="index2.html">Dark Theme</a>
       </div>
     </div>
-    <div id="editor" class="<?php echo $theme; ?>"></div>
+    <div id="editor" class="light"></div>
   </body>
 
   <script type="text/javascript">
   window.onload = function() {
-    editor.init("editor", "<?php echo $theme; ?>");
+    editor.init("editor", "light");
   };
   </script>
 </html>
