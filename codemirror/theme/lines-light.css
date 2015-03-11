@@ -46,12 +46,13 @@
 
 .cm-s-lines-light span.cm-hr:after {
   content: "";
-  width: 100%;
+  width: 60%;
   height: 1px;
   background-color: #000;
+  opacity: 0.1;
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 20%;
   margin-top: -1px;
 }
 

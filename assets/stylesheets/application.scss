@@ -19,6 +19,12 @@ html, body {
 
 body {
   background-color: #ddd;
+  &.light {
+    background-color: #fff;
+  }
+  &.dark {
+    background-color: #1a1a1a;
+  }
 }
 
 .grid {
@@ -30,7 +36,6 @@ body {
       color: #ff6600;
       text-transform: uppercase;
       text-decoration: none;
-      font-size: 3em;
       font-family: 'Fira Mono';
     }
   }
