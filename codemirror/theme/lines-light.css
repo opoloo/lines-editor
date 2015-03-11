@@ -13,15 +13,12 @@
 .cm-s-lines-light .CodeMirror-guttermarker { color: white; }
 .cm-s-lines-light .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
 .cm-s-lines-light .CodeMirror-linenumber {color: #d0d0d0;}
-.cm-s-lines-light .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
+.cm-s-lines-light .CodeMirror-cursor {border-left: 1px solid #000000 !important;}
 
 .cm-s-lines-light span {
   opacity: 0.8;
 }
 
-.cm-s-lines-light span.cm-formatting {
-  opacity: 0.2 !important;
-}
 
 .cm-s-lines-light span.cm-header-1 {
   opacity: 0.4 !important;
@@ -58,6 +55,9 @@
   margin-top: -1px;
 }
 
+.cm-s-lines-light span.cm-formatting {
+  opacity: 0.2 !important;
+}
 .cm-s-lines-light .CodeMirror-activeline-background {background: #373831 !important;}
 .cm-s-lines-light .CodeMirror-matchingbracket {
   text-decoration: underline;
