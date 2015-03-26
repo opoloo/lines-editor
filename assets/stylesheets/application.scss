@@ -6,6 +6,12 @@
   #{$a}: $v;
 }
 
+@mixin clearboth() {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,12 +24,33 @@ html, body {
 }
 
 body {
-  background-color: #ddd;
-  &.light {
-    background-color: #fff;
+  background-color: #f4f4f4;
+  // &.light {
+  //   background-color: #fff;
+  // }
+  // &.dark {
+  //   background-color: #1a1a1a;
+  // }
+}
+
+.actions {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2em 0;
+  .files {
+    float: left;
   }
-  &.dark {
-    background-color: #1a1a1a;
+  .btn-action {
+    float: left;
+    cursor: pointer;
+    margin-left: 2em;
+    &+.btn-action {
+      margin-left: 2em;
+    }
+  }
+  &:after {
+    @include clearboth();
   }
 }
 
@@ -48,10 +75,10 @@ body {
 
 #editor {
   width: 100%;
-  max-width: 1420px;
-  margin: 100px auto;
+  max-width: 860px;
+  margin: 0 auto;
   font-family: 'Fira Mono', monospace;
-  padding: 125px 280px;
+  padding: 1em;
   font-size: 18px;
   &.dark {
     background-color: #1a1a1a;

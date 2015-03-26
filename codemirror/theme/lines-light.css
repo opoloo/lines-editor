@@ -6,7 +6,7 @@
   line-height: 1.6;
 }
 
-.cm-s-lines-light div.CodeMirror-selected {background: #49483E !important;}
+.cm-s-lines-light div.CodeMirror-selected {background: #ddd !important;}
 .cm-s-lines-light.CodeMirror ::selection { background: rgba(73, 72, 62, .99); }
 .cm-s-lines-light.CodeMirror ::-moz-selection { background: rgba(73, 72, 62, .99); }
 .cm-s-lines-light .CodeMirror-gutters {background: #272822; border-right: 0px;}

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="codemirror/theme/lines-light.css" type="text/css" media="all" />
 
     <!-- Javascripts -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="codemirror/addon/mode/overlay.js"></script>
     <script type="text/javascript" src="codemirror/mode/markdown/markdown.js"></script>
@@ -41,15 +42,27 @@
         <a href="index.html">Light Theme</a>
       </div>
       <div class="col">
-        <a href="index2.html">Dark Theme</a>
+        <a href="index2.html"><s>Dark Theme</s></a>
       </div>
     </div>
+
+    <div class="actions">
+      <select class="files">
+        
+      </select>
+      <button class="btn-action" data-action="new">New</button>
+      <button class="btn-action" data-action=""><s>Folder</s></button>
+      <button class="btn-action" data-action="save">Save</button>
+      <button class="btn-action" data-action=""><s>Font-Size</s></button>
+      <button class="btn-action" data-action=""><s>Theme</s></button>
+    </div>
+
     <div id="editor" class="light"></div>
   </body>
 
   <script type="text/javascript">
   window.onload = function() {
-    editor.init("editor", "light");
+    editor.init("#editor", "light");
   };
   </script>
 </html>

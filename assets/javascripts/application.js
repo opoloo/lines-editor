@@ -3,22 +3,95 @@
   var editor;
 
   editor = {
-    cm: "",
-    default_value: "# The Surveillance State and the Problems that will affect our Future\n\nIt should be the purpose of an state to give its citizens as much freedom as possible, while at the same time protecting them from harm. Freedom involves certain risks, so security means the loss of certain freedoms. In a democratic state, the concepts of freedom and security must therefore be balanced out against each other.\n\n# 9/11 and the Patriot Act that resultet after the Destruction of the World Trade Center\n\nThe term 'surveillance state' describes a form of goverment that attacks and records locations, conversations, and connections between its citizens. This manner of imposing control will eventually influence how people act, which imposes boundaries on privacy.",
+    cm: '',
+    default_value: '# The Surveillance State and the Problems that will affect our Future\n\nIt should be the purpose of an state to give its citizens as much freedom as possible, while at the same time protecting them from harm. Freedom involves certain risks, so security means the loss of certain freedoms. In a democratic state, the concepts of freedom and security must therefore be balanced out against each other.\n\n# 9/11 and the Patriot Act that resultet after the Destruction of the World Trade Center\n\nThe term \'surveillance state\' describes a form of goverment that attacks and records locations, conversations, and connections between its citizens. This manner of imposing control will eventually influence how people act, which imposes boundaries on privacy.',
     init: function(selector, theme) {
       if (theme == null) {
         theme = 'light';
       }
-      return this.cm = CodeMirror(document.getElementById(selector), {
+      this.bind_events();
+      this.load_files();
+      return this.cm = CodeMirror($(selector)[0], {
         value: this.default_value,
         mode: {
-          name: "markdown",
+          name: 'markdown',
           highlightFormatting: true
         },
         lineWrapping: true,
         tabSize: 2,
-        theme: "lines-" + theme
+        theme: 'lines-' + theme
       });
+    },
+    bind_events: function() {
+      $(document).on('click', '.btn-action', function(e) {
+        var action;
+        action = $(this).data('action');
+        switch (action) {
+          case 'new':
+            return editor.new_file();
+          case 'save':
+            return editor.save_file();
+        }
+      });
+      return $(document).on("change", ".files", function(e) {
+        return editor.load_file($(this).val());
+      });
+    },
+    new_file: function() {
+      this.cm.setValue('');
+      return this.cm.clearHistory();
+    },
+    load_file: function(id) {
+      return this.cm.setValue(JSON.parse(localStorage.getItem(id)).content);
+    },
+    load_files: function() {
+      var files, i, keys;
+      files = [];
+      keys = Object.keys(localStorage);
+      i = 0;
+      while (i < keys.length) {
+        files.push(JSON.parse(localStorage.getItem(keys[i])));
+        i++;
+      }
+      return $.each(files, function(key, file) {
+        return $(".actions .files").append('<option value="' + files[key].id + '">' + files[key].title + '</option>');
+      });
+    },
+    save_file: function() {
+      var file, file_id, filename;
+      filename = prompt('Please name your document', 'New document');
+      if (filename === '') {
+        filename = 'New document';
+      }
+      file_id = this.generate_uuid();
+      file = {
+        id: file_id,
+        created_at: Date.now(),
+        updated_at: Date.now(),
+        title: filename,
+        content: this.cm.getValue()
+      };
+      localStorage.setItem(file_id, JSON.stringify(file));
+      return alert('File successfully saved.');
+    },
+    generate_uuid: function() {
+      var uuid;
+      var chars, i, r, rnd, uuid;
+      chars = '0123456789abcdef'.split('');
+      uuid = [];
+      rnd = Math.random;
+      r = void 0;
+      i = 0;
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
+      while (i < 36) {
+        if (!uuid[i]) {
+          r = 0 | rnd() * 16;
+          uuid[i] = chars[i === 19 ? r & 0x3 | 0x8 : r & 0xf];
+        }
+        i++;
+      }
+      return uuid.join('');
     }
   };
 
