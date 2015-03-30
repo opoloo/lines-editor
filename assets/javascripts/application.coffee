@@ -1,10 +1,10 @@
 editor =
   cm: ''
-  default_value: '# The Surveillance State and the Problems that will affect our Future\n\nIt should be the purpose of an state to give its citizens as much freedom as possible, while at the same time protecting them from harm. Freedom involves certain risks, so security means the loss of certain freedoms. In a democratic state, the concepts of freedom and security must therefore be balanced out against each other.\n\n# 9/11 and the Patriot Act that resultet after the Destruction of the World Trade Center\n\nThe term \'surveillance state\' describes a form of goverment that attacks and records locations, conversations, and connections between its citizens. This manner of imposing control will eventually influence how people act, which imposes boundaries on privacy.'
+  default_value: '# New document\n\nStart writing your story here...'
 
   init: (selector, theme = 'light') ->
     @bind_events()
-    @load_files()
+    @load_documents()
 
     @cm = CodeMirror($(selector)[0],
       value: @default_value
@@ -21,56 +21,74 @@ editor =
       action = $(this).data('action')
       switch action
         when 'new'
-          editor.new_file()
+          editor.new_document()
         when 'save'
-          editor.save_file()
+          editor.save_document()
 
-    $(document).on "change", ".files", (e) ->
-      editor.load_file($(this).val())
+    $(document).on 'change', '.documents', (e) ->
+      editor.load_document $(this).val()
 
-  new_file: ->
-    @cm.setValue('')
+    $(document).on 'change', '.font-size', (e) ->
+      editor.set_font_size $(this).val()
+
+    $(document).on 'change', '.theme', (e) ->
+      editor.set_theme $(this).val()
+
+  new_document: ->
+    # Clear editor
+    @cm.setValue(@default_value)
     @cm.clearHistory()
+    # Set document selection to new doc
+    $(".documents").val("new")
 
-  load_file: (id) ->
-    @cm.setValue(JSON.parse(localStorage.getItem(id)).content)
+  load_document: (id) ->
+    if id is "new"
+      @new_document()
+    else
+      @cm.setValue(JSON.parse(localStorage.getItem(id)).content)
 
-  load_files: ->
-    files = []
+  set_font_size: (size) ->
+    $('.CodeMirror').css "font-size", size + "px"
+
+  set_theme: (theme) ->
+    @cm.setOption 'theme', theme
+    $('#editor').removeClass("lines-light")
+    $('#editor').removeClass("lines-dark")
+    $('#editor').addClass(theme)
+
+  load_documents: ->
+    documents = []
     keys = Object.keys localStorage
     i = 0
 
-    # Read all saved files from localStorage
+    # Read all saved documents from localStorage
     while i < keys.length
-      files.push JSON.parse(localStorage.getItem(keys[i]))
+      documents.push JSON.parse(localStorage.getItem(keys[i]))
       i++
 
     # Parse each file and insert it into file-selection
-    $.each files, (key, file) ->
-      $(".actions .files").append('<option value="' + files[key].id + '">' + files[key].title + '</option>')
+    $.each documents, (key, doc) ->
+      $(".actions .documents").append('<option value="' + documents[key].id + '">' + documents[key].title + '</option>')
 
-  save_file: ->
-    # Ask for filename
-    filename = prompt('Please name your document', 'New document')
+  save_document: ->
+    # Ask for docname
+    docname = prompt('Please name your document', 'New document')
 
-    # If filename is not set, set it to default
-    if filename == ''
-      filename = 'New document'
+    if docname
+      # Unique File ID
+      doc_id = @generate_uuid()
 
-    # Unique File ID
-    file_id = @generate_uuid()
+      # Create new file object
+      doc =
+        id: doc_id
+        created_at: Date.now()
+        updated_at: Date.now()
+        title: docname
+        content: @cm.getValue()
 
-    # Create new file object
-    file =
-      id: file_id
-      created_at: Date.now()
-      updated_at: Date.now()
-      title: filename
-      content: @cm.getValue()
-
-    # Save file object to localStorage
-    localStorage.setItem(file_id, JSON.stringify(file))
-    alert 'File successfully saved.'
+      # Save file object to localStorage
+      localStorage.setItem(doc_id, JSON.stringify(doc))
+      alert 'File successfully saved.'
 
   generate_uuid: ->
     `var uuid`

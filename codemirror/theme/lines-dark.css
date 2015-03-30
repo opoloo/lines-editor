@@ -2,8 +2,11 @@
   background: #1a1a1a;
   color: #ffffff;
   height: auto;
-  min-height: 300px;
   line-height: 1.6;
+}
+
+.cm-s-lines-light.CodeMirror pre {
+  font-family: 'Fira Mono';
 }
 
 .cm-s-lines-dark div.CodeMirror-selected {background: #49483E !important;}
@@ -55,6 +58,7 @@
   left: 20%;
   margin-top: -1px;
 }
+
 .cm-s-lines-dark span.cm-formatting {
   opacity: 0.2 !important;
 }

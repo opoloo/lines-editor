@@ -4,13 +4,13 @@
 
   editor = {
     cm: '',
-    default_value: '# The Surveillance State and the Problems that will affect our Future\n\nIt should be the purpose of an state to give its citizens as much freedom as possible, while at the same time protecting them from harm. Freedom involves certain risks, so security means the loss of certain freedoms. In a democratic state, the concepts of freedom and security must therefore be balanced out against each other.\n\n# 9/11 and the Patriot Act that resultet after the Destruction of the World Trade Center\n\nThe term \'surveillance state\' describes a form of goverment that attacks and records locations, conversations, and connections between its citizens. This manner of imposing control will eventually influence how people act, which imposes boundaries on privacy.',
+    default_value: '# New document\n\nStart writing your story here...',
     init: function(selector, theme) {
       if (theme == null) {
         theme = 'light';
       }
       this.bind_events();
-      this.load_files();
+      this.load_documents();
       return this.cm = CodeMirror($(selector)[0], {
         value: this.default_value,
         mode: {
@@ -28,51 +28,70 @@
         action = $(this).data('action');
         switch (action) {
           case 'new':
-            return editor.new_file();
+            return editor.new_document();
           case 'save':
-            return editor.save_file();
+            return editor.save_document();
         }
       });
-      return $(document).on("change", ".files", function(e) {
-        return editor.load_file($(this).val());
+      $(document).on('change', '.documents', function(e) {
+        return editor.load_document($(this).val());
+      });
+      $(document).on('change', '.font-size', function(e) {
+        return editor.set_font_size($(this).val());
+      });
+      return $(document).on('change', '.theme', function(e) {
+        return editor.set_theme($(this).val());
       });
     },
-    new_file: function() {
-      this.cm.setValue('');
-      return this.cm.clearHistory();
+    new_document: function() {
+      this.cm.setValue(this.default_value);
+      this.cm.clearHistory();
+      return $(".documents").val("new");
     },
-    load_file: function(id) {
-      return this.cm.setValue(JSON.parse(localStorage.getItem(id)).content);
+    load_document: function(id) {
+      if (id === "new") {
+        return this.new_document();
+      } else {
+        return this.cm.setValue(JSON.parse(localStorage.getItem(id)).content);
+      }
     },
-    load_files: function() {
-      var files, i, keys;
-      files = [];
+    set_font_size: function(size) {
+      return $('.CodeMirror').css("font-size", size + "px");
+    },
+    set_theme: function(theme) {
+      this.cm.setOption('theme', theme);
+      $('#editor').removeClass("lines-light");
+      $('#editor').removeClass("lines-dark");
+      return $('#editor').addClass(theme);
+    },
+    load_documents: function() {
+      var documents, i, keys;
+      documents = [];
       keys = Object.keys(localStorage);
       i = 0;
       while (i < keys.length) {
-        files.push(JSON.parse(localStorage.getItem(keys[i])));
+        documents.push(JSON.parse(localStorage.getItem(keys[i])));
         i++;
       }
-      return $.each(files, function(key, file) {
-        return $(".actions .files").append('<option value="' + files[key].id + '">' + files[key].title + '</option>');
+      return $.each(documents, function(key, doc) {
+        return $(".actions .documents").append('<option value="' + documents[key].id + '">' + documents[key].title + '</option>');
       });
     },
-    save_file: function() {
-      var file, file_id, filename;
-      filename = prompt('Please name your document', 'New document');
-      if (filename === '') {
-        filename = 'New document';
+    save_document: function() {
+      var doc, doc_id, docname;
+      docname = prompt('Please name your document', 'New document');
+      if (docname) {
+        doc_id = this.generate_uuid();
+        doc = {
+          id: doc_id,
+          created_at: Date.now(),
+          updated_at: Date.now(),
+          title: docname,
+          content: this.cm.getValue()
+        };
+        localStorage.setItem(doc_id, JSON.stringify(doc));
+        return alert('File successfully saved.');
       }
-      file_id = this.generate_uuid();
-      file = {
-        id: file_id,
-        created_at: Date.now(),
-        updated_at: Date.now(),
-        title: filename,
-        content: this.cm.getValue()
-      };
-      localStorage.setItem(file_id, JSON.stringify(file));
-      return alert('File successfully saved.');
     },
     generate_uuid: function() {
       var uuid;

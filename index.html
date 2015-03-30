@@ -37,27 +37,63 @@
     //   $theme = "light";
     // }
     ?>
-    <div class="grid">
+    <!-- <div class="grid">
       <div class="col">
         <a href="index.html">Light Theme</a>
       </div>
       <div class="col">
         <a href="index2.html"><s>Dark Theme</s></a>
       </div>
-    </div>
+    </div> -->
+    <div class="wrapper">
+      <div class="actions">
+        <div class="action">
+          <button class="btn-action" data-action="new">New document</button>
+        </div>
+        <div class="action">
+          <button class="btn-action" data-action="save">Save document</button>
+        </div>
+        <div class="action">
+          <button class="btn-action" data-action="" disabled="">Folder</button>
+        </div>
+        <div class="action">
+          <label for="documents">Documents:</label>
+          <select class="documents" id="documents">
+            <option value="new">New Document</option>
+          </select>
+        </div>
+        <div class="action">
+          <label for="theme">Theme:</label>
+          <select class="theme" id="theme">
+            <option value="lines-light">Light</option>
+            <option value="lines-dark">Dark</option>
+          </select>
+        </div>
+        <div class="action">
+          <label for="font-size">Font-Size:</label>
+          <select class="font-size" id="font-size">
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18" selected>18</option>
+            <option value="20">20</option>
+            <option value="22">22</option>
+            <option value="24">24</option>
+            <option value="26">26</option>
+            <option value="28">28</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+            <option value="72">72</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="actions">
-      <select class="files">
-        
-      </select>
-      <button class="btn-action" data-action="new">New</button>
-      <button class="btn-action" data-action=""><s>Folder</s></button>
-      <button class="btn-action" data-action="save">Save</button>
-      <button class="btn-action" data-action=""><s>Font-Size</s></button>
-      <button class="btn-action" data-action=""><s>Theme</s></button>
+      <div id="editor" class="lines-light"></div>
     </div>
-
-    <div id="editor" class="light"></div>
   </body>
 
   <script type="text/javascript">

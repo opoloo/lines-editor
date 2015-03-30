@@ -25,6 +25,7 @@ html, body {
 
 body {
   background-color: #f4f4f4;
+  font-family: 'Fira Mono';
   // &.light {
   //   background-color: #fff;
   // }
@@ -33,20 +34,44 @@ body {
   // }
 }
 
-.actions {
-  max-width: 860px;
+.wrapper {
+  max-width: 980px;
   width: 100%;
   margin: 0 auto;
-  padding: 2em 0;
-  .files {
-    float: left;
-  }
-  .btn-action {
-    float: left;
-    cursor: pointer;
-    margin-left: 2em;
-    &+.btn-action {
-      margin-left: 2em;
+  padding: 100px 0;
+}
+
+.actions {
+  width: 220px;
+  float: left;
+  padding-right: 20px;
+  border-right: 1px solid #ddd;
+  margin-right: 20px;
+  .action {
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    select, button {
+      border: 1px solid #aaa;
+      padding: .5em 1em;
+      border-radius: 3px;
+      background: linear-gradient(#fff, #ccc);
+      cursor: pointer;
+      font-family: 'Fira Mono';
+      max-width: 100%;
+      &:hover {
+        background: linear-gradient(#fff, #ddd);
+      }
+      &:active {
+        background: linear-gradient(#ccc, #fff);
+      }
+      &[disabled] {
+        cursor: not-allowed;
+      }
+    }
+    &+.action {
+      margin-top: 1em;
     }
   }
   &:after {
@@ -75,15 +100,16 @@ body {
 
 #editor {
   width: 100%;
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: 740px;
   font-family: 'Fira Mono', monospace;
-  padding: 1em;
+  padding: 20px;
   font-size: 18px;
-  &.dark {
+  float: none;
+  overflow: hidden;
+  &.lines-dark {
     background-color: #1a1a1a;
   }
-  &.light {
+  &.lines-light {
     background-color: #ffffff;
   }
 }
