@@ -90,8 +90,11 @@ editor =
       localStorage.setItem(doc_id, JSON.stringify(doc))
       alert 'File successfully saved.'
 
+      # Update documents list
+      $('.actions .documents').append('<option value="' + doc.id + '">' + doc.title + '</option>')
+      $('.actions .documents').val(doc.id)
+
   generate_uuid: ->
-    `var uuid`
     chars = '0123456789abcdef'.split('')
     uuid = []
     rnd = Math.random

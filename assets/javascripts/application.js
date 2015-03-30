@@ -90,11 +90,12 @@
           content: this.cm.getValue()
         };
         localStorage.setItem(doc_id, JSON.stringify(doc));
-        return alert('File successfully saved.');
+        alert('File successfully saved.');
+        $('.actions .documents').append('<option value="' + doc.id + '">' + doc.title + '</option>');
+        return $('.actions .documents').val(doc.id);
       }
     },
     generate_uuid: function() {
-      var uuid;
       var chars, i, r, rnd, uuid;
       chars = '0123456789abcdef'.split('');
       uuid = [];
